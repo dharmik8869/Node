@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+    <form action="/blog/blogData" method="post">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="content" placeholder="content">
+        <input type="text" name="author" placeholder="author">
+        <input type="submit">
+    </form>
+
+    <div  style="display: flex; justify-content:center; gap:20px; margin: 50px;">
+    <% data.map((el,i)=> {%>
+    <div class="card p-2" style="width: 400px;">
+      <div class="card-body">
+        <h6 class="card-text">Title :<%= el.title%></h6>
+        <p class="card-text">
+          <%= el.content%>
+        </p>
+        <h6 class="card-text">Author : <%= el.author%></h6>
+      </div>
+      <a href="/blog/delete?id=<%= el._id%>" class="btn btn-dark" >Delete</a>
+      <a href="/blog/edit?id=<%= el._id%>" class="btn btn-dark mt-3">Edit</a>
+    </div>
+    <%})%>
+    </div>
+</body>
+</html>

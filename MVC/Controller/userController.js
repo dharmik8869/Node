@@ -27,6 +27,10 @@ const Login = async (req, res) => {
     });
 };
 
+const local=(req,res)=>{
+    return res.send("successfully")
+}
+
 // READ (GET all)
 const GetUser = async (req, res) => {
     const data = await usermodel.find();
@@ -46,4 +50,4 @@ const EditUser = async (req, res) => {
     res.send(data);
 };
 
-module.exports = { Register, Login, GetUser, DeleteUser, EditUser };
+module.exports = { Register, Login, GetUser, DeleteUser, EditUser,local};

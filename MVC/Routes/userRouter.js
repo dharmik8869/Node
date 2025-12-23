@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Register, Login, GetUser } = require("../Controller/UserController");
+const passport=require("passport")
+const { Register, Login, GetUser, local } = require("../Controller/UserController");
 
 // UI Route — Register Page
 router.get("/register", (req, res) => {
@@ -16,5 +17,7 @@ router.get("/login", (req, res) => {
 router.post("/register", Register);
 router.post("/login", Login);
 router.get("/all", GetUser);
+router.post("/local", passport.authenticate("local"),local);
+
 
 module.exports = router;
