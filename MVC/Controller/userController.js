@@ -1,4 +1,5 @@
 const usermodel = require("../model/usermodel");
+const jwt = require("jsonwebtoken")
 
 // CREATE (Register)
 const Register = async (req, res) => {
@@ -19,6 +20,20 @@ const Login = async (req, res) => {
     // 2) Password check
     if (user.password !== password) {
         return res.status(400).send({ message: "Incorrect password" });
+    }
+
+    if(user && user.password==password)
+    {
+        let payload={
+            username:user.username,
+            password:user.password,
+            id:user.id,
+        }
+
+        let token = jwt.sign(payload,"private-key")
+        console.log(token)
+
+        return res.cookie("token",token).send("loggen in")
     }
 
     res.send({
@@ -50,4 +65,12 @@ const EditUser = async (req, res) => {
     res.send(data);
 };
 
-module.exports = { Register, Login, GetUser, DeleteUser, EditUser,local};
+const verifyToken = (req,res)=>{
+    // console.log(req.headers.authorization)
+    let token = req.headers.authorization.split(' ')[1]
+        let decoded = jwt.verify(token,'private-key')
+        return res.send(decoded)
+}
+
+
+module.exports = { Register, Login, GetUser, DeleteUser, EditUser,local,verifyToken};
